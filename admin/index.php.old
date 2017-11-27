@@ -1,0 +1,247 @@
+<style src="admin/style.css" type="text/css" media="screen"></style>
+
+<script type="text/javascript" src="/sn/script/soundmanager2.js"></script>
+
+<script type="text/javascript">
+soundManager.url = '/sn/script';
+
+// disable debug mode after development/testing..
+soundManager.debugMode = false;
+
+
+var mp3_names = new Array("parksandrec", "eminem1", "cantinaband", "finalcountdown", "muppets1",
+			  "muppets2", "newhope", "sun", "yackitysax", "marioworld", "cancan", "onepunchmanhero", "slayer",
+			  "ateam", "fire", "petergunn", "vikings", "raising",
+			  "pokemon");
+
+var s_array = new Array();
+
+var s_num = Math.floor(Math.random()*mp3_names.length);
+
+//var s_num = mp3_names.length-1;
+
+var timer_var;
+
+soundManager.onload = function() {
+  for (i = 0; i < mp3_names.length; i++)
+    {
+      console.log('adding ' + mp3_names[i]);
+      s_array.push(soundManager.createSound({
+       id:mp3_names[i], autoload: true,
+	      url:('audio/countdowns/' + mp3_names[i] + '.mp3')}));
+    }
+  s_reveal = soundManager.createSound({
+    id:'reveal', autoload: true, volume: 30,
+	url:'audio/zitem.mp3'});
+
+};
+
+resultsObject = null;
+</script>
+
+<script type="text/javascript">
+function Tick()
+{
+  $counter --;
+  if ($counter == 0)
+    {
+      $('counternum').innerHTML = "TIME'S UP!";
+      new Ajax.Request("admin/info.php?action=timegone");
+      clearInterval(timer_var);
+      return;
+    }
+  var $filler = "";
+  if ($counter < 10) $filler = "0";
+  $('counternum').innerHTML = "0:" + $filler + $counter;
+}
+
+function CancelCountdown()
+{
+  $('counternum').innerHTML = "TIME'S UP!";
+  new Ajax.Request("admin/info.php?action=timegone");
+  clearInterval(timer_var);
+  s_array[s_num].stop();
+}
+
+function DoCountdown()
+{
+  clearInterval(timer_var);
+  $counter = 30;
+  $('countbanner').className = "lit";
+  $('counternum').innerHTML = "0:30";
+  
+  s_array[s_num].stop();
+
+  //s_num = Math.floor(Math.random()*mp3_names.length);  
+
+  s_num = (s_num + 1) % mp3_names.length;
+
+  s_array[s_num].play();
+  timer_var = setInterval("Tick()", 1000);
+}
+
+function panelon(what)
+{
+  $(what + "_panel").className="lit";
+}
+
+function paneloff(what)
+{
+  $(what + "_panel").className="hidden";
+}
+
+function DoClear()
+{
+  $('counternum').innerHTML = "";
+  $('countbanner').className = "unlit";
+  $('currentitem').clear();
+  new Ajax.Request("admin/clear.php");
+  paneloff('responses');
+  resultsObject.start();
+}
+
+function DoClearSave()
+{
+   $('counternum').innerHTML = "";
+   $('countbanner').className = "unlit";
+   $('currentitem').clear();
+   paneloff('responses');
+   resultsObject.start();
+   $('scoreform').request();
+}
+
+function DoReveal()
+{
+  s_reveal.play();
+  setTimeout("panelon('responses')", 500);
+  resultsObject.stop();
+  new Ajax.Updater('responsebox', 'admin/info.php?action=distrib');
+}
+
+</script>
+
+<?php
+require ("sessionwithadmin.php");
+require ("db.php");
+?>
+
+
+<?php
+  switch ($_SESSION['phase'])
+    {
+    case "Preliminary":
+?>
+<div class="narrow">
+      <p>Instructor Panel &mdash; Setup</p>
+    <form action="main.php" method="post">
+<select name="courseandsection">
+<?php
+$result=mysql_query("select course, section from roster group by course, section", $db);
+$rowCheck = mysql_num_rows($result);
+ for ($i = 0; $i < $rowCheck; $i++)
+   {
+     $row = mysql_fetch_row($result);
+     $whichcourse = $row[0];
+     $whichsection = $row[1];
+?>
+       <option value='<?=$whichcourse?> <?=$whichsection?>'><?=strtoupper($whichcourse . " " . $whichsection)?></option>
+<?php
+   }
+?>
+<option value='public'>[none]</option>
+</select>
+
+    <input type="submit" value="Submit" />
+</form>
+</div>
+<?php
+      break;
+    case "Attendance":
+    echo "<center><p style='font-size:1.5em;'>\n";
+    passthru ("./responses.pl " . $_SESSION['course'] . " today");
+    echo "</p></center>\n";
+?>
+<a href="index.php?done=y">Done</a>
+<hr />
+
+<div id="attendancebox">
+
+</div>
+
+<script type="text/javascript">
+  new Ajax.PeriodicalUpdater('attendancebox', 'admin/info.php?action=attendance', {
+    method: 'get', frequency: 2
+	});
+</script>
+
+<?php
+    break;
+    case "Collection":
+?>
+
+Current Prompt: <button onClick="$('updatecurrent').request(); return false;">Update</button>
+<form id="updatecurrent" action="admin/update.php" method="post">
+<textarea id='currentitem' cols="60" rows="12" name="current" style="font-size: 2em;">
+
+</textarea>
+</form>
+<hr />
+
+    Responses: <span id="countbox">...</span>
+
+      <?php if ($_SESSION['course'] != "public") { ?>
+    (<a onclick="
+window.open('admin/info.php?action=waitingfor','labwindow', 'width=680,height=350,status=0,toolbar=0,scrollbars=0,location=0,menubar=0,resizable=0');
+">show remaining</a>)
+						   <?php } ?>
+<br />
+<button onClick="DoCountdown();">30 second warning</button>
+<button onClick="CancelCountdown();">Cancel</button>
+<button onClick="DoReveal();">Reveal</button>
+<button onClick="DoClear();">Clear</button>
+   <?php if ($_SESSION['course'] != "public") { ?>
+<button onClick="DoClearSave();">Clear and Save</button>
+						<?php } ?>
+<h2 class="unlit" id="countbanner"><span id="counternum"></span></h2>
+
+<hr />
+
+<div id="responses_panel" class="hidden">
+
+<form id="scoreform" action="admin/clear.php" method="post">   
+<div id="responsebox">
+
+    (Retrieving responses...)
+</div>
+</form>
+
+<div id="lateresponsebox">
+...
+</div>
+
+</div>
+
+<hr />
+
+<script type="text/javascript">
+  new Ajax.PeriodicalUpdater('countbox', 'admin/info.php?action=count', {
+    method: 'get', frequency: 2
+	});
+
+ resultsObject = 
+new Ajax.PeriodicalUpdater('responsebox', 'admin/info.php?action=distrib', {
+    method: 'get', frequency: 2
+	});
+
+new Ajax.PeriodicalUpdater('lateresponsebox', 'admin/info.php?action=latedistrib', {
+    method: 'get', frequency: 2
+	});
+</script>
+
+<?php
+      break;
+    }
+?>
+
+</body>
+</html>

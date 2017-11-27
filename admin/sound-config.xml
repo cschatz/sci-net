@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<items baseHref="audio/" defaultVol="80">
+ <sound id="counting" href="zitem.mp3" />
+</items>

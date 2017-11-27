@@ -1,0 +1,296 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="styles.css" type="text/css" />
+    <title>
+      Star Charts and Constellations
+    </title>
+  </head>
+
+  <body>
+
+      <h1>Star Charts and Constellations</h1>
+
+<div style="background: #8f8; padding: 10px; border: solid 2px #484">  
+[<b><i>NOTE: This is the original Python version of this assignment 
+as written by Karen Reid of the University of Toronto. The CS 1
+version of this assignment will differ in a number of ways and full
+instructions will be provided once the framework is available. This
+page is provided now to give a general idea of what the assignment is about.</i></b>]
+</div>
+
+    <h2>Overview</h2>
+    <p>
+      The purpose of this assignment is to give you practice in a
+      number of areas:
+    </p>
+    <ul>
+      <li>
+        Creating, modifying, and extracting data from dictionaries.
+      </li>
+      <li>
+        Working with both image and text files.
+      </li>
+      <li>
+        Modular development and testing.
+      </li>      
+    </ul>
+    
+    <h2>Star Catalogs and Coordinate Systems</h2>
+
+    <p> Astronomers collect lots of data about stars and there are many
+    catalogs that identify the locations of stars. In this assignment, you
+    will use data from a <a
+    href="http://webviz.u-strasbg.fr/viz-bin/VizieR">star catalog</a> to
+    create a picture that plots the locations of stars. </p>
+
+	 <p> Since a real data set often has some incorrect data and the
+     occasional field missing, a cleaned up catalog has been prepared for your
+     use in this assignment. The file <a
+     href="./stars.txt">stars.txt</a> contains one line for each
+     star that is represented in the catalog. The meaning of each field
+     (column) is described below.</p>
+
+	 <ul> 
+
+		<li>The first three fields are the x, y and z coordinates for the
+        star. We will ignore the z coordinate, and use only the x and y
+        coordinates. Each axis in the coordinate system goes from -1 to +1,
+        and the centre point is 0,0. (See the figure below.)</li>
+
+	    <li>The fourth field is the <a
+        href="http://en.wikipedia.org/wiki/Henry_Draper_catalogue"> Henry
+        Draper</a> number, which is simply a unique identifier for the
+        star.</li>
+
+	    <li>The fifth field is the <a
+        href="http://en.wikipedia.org/wiki/Apparent_magnitude"> magnitude</a>
+        (or brightness) of the star.</li>
+
+	 <li>The sixth field is Harvard Revised number, another identifier. </li>
+
+	 <li>The seventh field exists only for a small number of stars and is a
+     semicolon-separated list of names for a star. A star may have several
+     names.</li>
+
+	</ul>
+
+ <p>Two unique identifiers appear in the data because the star data has been
+collected from different sources, and the catalogs have several different ways
+to uniquely identify stars. The fields that you will need for this assignment
+include the x and y coordinates, the magnitude, the Henry Draper number, and
+the name (or names) of each star.</p>
+
+<p>The coordinate system used for pixels in a picture has position (0,0) in
+the upper left corner of the picture, and the maximum x and y values are the
+height and width of the picture in pixels. In this assignment, all pictures
+will be square. See below for a comparison of the two coordinate systems. </p>
+
+ <img alt="Coordinate system centered on (0,0)" src="coord-system.jpg"/> <img
+alt="Coordinate system with (0,0) in upper left corner"
+src="coord-system2.jpg"/>
+
+
+	<h3>Warmup Functions</h3>
+
+
+ <p>To create a picture of the stars, the first thing we need to do is
+translate from the coordinate system used in the star catalog to the picture
+coordinate system. The coordinate systems are described above.</p>
+
+<h4>Step 1: Translate Coordinates</h4>
+
+<p>The first task is to write a function <code>coords_to_pixel(orig_x, orig_y,
+size)</code>: Given the x and y coordinates of a star (original_x and
+original_y), and the size in pixels of the picture, return the <code>x,
+y</code> location of the star in terms of pixels in the picture.</p>
+
+<p>For example, if the size of the picture is 1000 by 1000, then the (0, 0)
+point in the star catalog is at pixel (500, 500), and (0.5, 0.5) from the
+catalog is at pixel (750, 250).</p>
+
+<p>You should use <code>coords_to_pixel</code> as a helper function in the
+remainder of the assignment.</p>
+
+<h4>Step 2: Draw square ons a picture</h4>
+
+<p>Write a function called <code>plot_squares(list)</code> that takes a list
+of tuples, where each tuple is a point in the coordinate system from the
+catalog, creates an empty 100 by 100 pixel picture, plots the points as 2 by 2
+pixel squares, and returns the picture.</p>
+
+<p></p>
+
+ <h2>Part 1: Plotting star charts</h2>
+
+
+    <p>
+      Implement the following functions in <code>plot_stars.py</code>:
+    </p>
+    
+    <table width="100%" border="1" cellpadding="2" cellspacing="0">
+      <col width="67*" />
+        <col width= "189*" />
+          <tr>
+            <th>Function Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>
+              <code>read_coords(file)</code>
+            </td>
+            <td>
+              <p>
+                Given an open text file that contains a star catalog as 
+				specified above, return three dictionaries.  The first is 
+				keyed on the Henry Draper number and the values are tuples 
+				containing the x and y coordinates of each star.  
+			 </p>
+			<p> The second 
+				dictionary is also keyed on the Henry Draper numbers and 
+				contains the magnitudes (<cod>float</code>) of the stars.
+			</p>
+
+			<p> The third dictionary is keyed on the names of the stars and
+            the values are the Henry Draper numbers. If a star has more than
+            one name, each name will appear as a key in the third dictionary.
+            If a star does not have a name it will not be represented in the
+            third dictionary. </p>
+
+
+            </td>
+          </tr>
+
+		<tr>
+			<td><code>plot_plain_stars(picture, int, dict)</code></td>
+
+			<td> Given a square picture object, the size of the the picture in
+            pixels, and a dictionary containing the x,y coordinates of stars
+            as values in the dictionary, plot the stars of the picture, and
+            return the picture. Assume that the initial picture is black. The
+            stars are plotted as 2x2 pixel white-filled rectangles. (The
+            <code>add_rect_filled</code> function in the picture module will
+            help you out.) </td>
+
+		</tr>
+		<tr>
+			<td><code>plot_by_magnitude(picture, int, dict, dict)</code></td>
+
+			<td> Given a square picture object, the size of the the picture in
+            pixels, a dictionary containing the x,y coordinates of stars as
+            values in the dictionary, and a dictionary containing the
+            magnitudes, plot the stars on the picture, and return the picture.
+            Assume that the initial picture is black. In this case the stars
+            are plotted as white-filled rectangles, but the size of the
+            rectangle is a function of the magnitude of the stars. Since
+            brighter stars have smaller magnitude values, you will calculate
+            the size of the rectangle as follows: <br /> <code>star_size =
+            round(10.0 / (magnitudes[id] + 2))</code> </td>
+
+		</tr>
+    </table>
+    
+    
+    <p>
+      Remember to test your code thoroughly.  As in previous assignments, you
+      are asked to submit a file <code>test_star_plot.py</code>
+      that contains your test module.
+      Every function you write should have at least one test in the
+      test module, and each test should be specific (only testing one
+      or a small number of conditions), unique (not redundant), and
+      well-documented.  You will find it useful to create short catalog 
+      files (with only 2 or 3 stars) for testing.
+    </p>
+    
+    <h2>Part 2: Drawing constellations</h2>
+
+    <p> The image below is an example of the output of your work in this part
+    of the assignment. </p>
+
+    <p> <img width="400" alt="Star map with several constellations drawn on
+    it" src="starchart.jpg" /> </p>
+
+        <p> We are providing several text files that describe that describe
+        constellations. Each file contains two star names per line of the
+        file. Each pair of star names represent one line to be drawn for the
+        constellation. You will write a function to read this data into a
+        dictionary, and add the lines between the stars on to a picture
+        containing a star map.
+
+    </p>
+
+	<h3>Constellation files</h3>
+
+	<ul>
+		<li><a href="constellations/Cas_lines.txt">Cassiopeia</a></li>
+		<li><a href="constellations/Cyg_lines.txt">Cygnet</a></li>
+		<li><a href="constellations/BigDipper_lines.txt">Big Dipper</a></li>
+		<li><a href="constellations/Bootes_lines.txt">Bootes</a></li>
+		<li><a href="constellations/Gemini_lines.txt">Gemini</a></li>
+		<li><a href="constellations/Hydra_lines.txt">Hydra</a></li>
+		<li><a href="constellations/UrsaMajor_lines.txt">Ursa Major</a></li>
+		<li><a href="constellations/UrsaMinor_lines.txt">Ursa Minor</a></li>
+	</ul>
+    
+    <h3>The Task:</h3>
+
+    <p> Download the files of constellation data and implement the following
+    functions in <code>plot_stars.py</code>:
+
+    </p>
+    
+    <table width="100%" border="1" cellpadding="2" cellspacing="0">
+      <col width="67*" />
+        <col width= "189*" />
+          <tr>
+            <th>Function Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>
+              <code>read_constellation_lines(file)</code>
+            </td>
+
+            <td> Given an open text file that contains constellation data in
+            the form described above, return a dictionary with star names of
+            type <code>str</code> as keys and lists of star names as values.
+            For each key, the associated list contains all stars connected
+            by a line to the key star. </td>
+
+          </tr>
+          <tr>
+            <td>
+              <code>plot_constellations(Picture, dict, dict, dict, Color, int)</code>
+            </td>
+            <td>
+              Given the following arguments in order:
+				<ul>
+					<li> a star chart picture, </li>
+					<li> a dictionary of coordinates where the keys are Henry Draper 
+						numbers, IDs of type <code>str</code> and the
+              			values are a tuple of the x, y coordinates.
+					</li>
+					<li> a dictionary containing the lines between stars, </li>
+					<li>a dictionary containing the mapping between star name and 
+						the Henry Draper numbers</li>
+					<li> a Color representing the color to draw the lines  (Recall that the picture module has many colors defined.)
+						</li>
+					<li> an int representing the size of the picture </p>
+				</ul>
+				
+				Plot the lines for the constellation on the picture, and return the picture.
+            </td>
+          </tr>
+    </table>
+
+    
+    <p>
+      As in Part 1, you may use as many helper functions as you wish.
+      Style and design count, and we expect each function to have at
+      least one test in the test module.
+    </p>
+    
+
+  </body>
+</html>
+    

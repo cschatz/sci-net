@@ -1,0 +1,136 @@
+<i>Willow:</i> I'm a science nerd.<br />
+&nbsp;&nbsp;<i>Buffy:</i> Don't say that!<br />
+<i>Willow:</i> I'm not ashamed. It's the computer age. Nerds are in.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+... They're still in, right?
+#
+Q: Why did the programmer quit his job?<br />
+A: Because he didn't get arrays.<br />
+#
+There are 10 kinds of people in the world:<br />
+those who understand binary, and those who don't.
+#
+"A good programmer is someone who always looks both ways<br />
+before crossing a one-way street."<br />
+&nbsp;&nbsp;&nbsp;&nbsp;
+&mdash; Doug Linder
+#
+When life gives you lemons, don't make lemonade.<br />
+Make life take the lemons back!
+#
+Two bytes meet.  The first byte asks, "Are you ill?"<br />  
+The second byte replies, "No, just feeling a bit off."
+#
+Q: What do you call 8 hobbits?<br />
+A: A hobbyte.
+#
+To understand recursion,<br />
+ one must first understand recursion.
+#
+"Measuring programming progress by lines of code is like<br />
+measuring aircraft building progress by weight."<br />
+&nbsp;&nbsp;&nbsp;&nbsp;
+&mdash; Bill Gates
+#
+"One of my most productive days was<br />
+throwing away 1000 lines of code."<br />
+&nbsp;&nbsp;&nbsp;&nbsp;
+&mdash; Ken Thompson 
+#
+A strange game. The only winning move is not to play.
+#
+All the cake is gone. You don't even care, do you?
+#
+The wrong man in the right place<br />
+can make all the difference in the world.
+#
+What's your favorite thing about space?<br />
+Mine is space.
+#
+It is pitch black. You are likely to be eaten by a grue.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-size:0.8em">(<a href="http://www.youtube.com/watch?v=4nigRT2KmCE"
+target="_blank">Nerdy rap song version here</a>.)</span>
+#
+Have you tried turning it off and on again?
+#
+Put it up to eleven.
+#
+You keep using that word.<br />
+I do not think it means what you think it means.
+#
+We've done the impossible, and that makes us mighty.
+#
+"Whoever learns but does not think is lost.<br />
+Whoever thinks but does not learn is in great danger."<br />
+&nbsp;&nbsp;&nbsp;&nbsp;
+&mdash; Confucius
+#
+"The good news about computers is that they do what you tell them to do.<br />
+"The bad news is that they do what you tell them to do."<br />
+&nbsp;&nbsp;&nbsp;&nbsp;
+&mdash; Ted Nelson
+#
+<i>Hofstadter's Law</i>: It always takes longer than you expect,<br />
+even when you take into account Hofstadter's Law.
+#
+<i>Confidence</i>:<br />The feeling you have before you understand the situation.
+#
+When debugging, novices insert corrective code;<br />
+experts remove defective code.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;
+&mdash; Richard Pattis
+#
+There is nothing quite so permanent as a quick fix.
+#
+The two hardest problems in computer science are<br />
+cache expiration, naming, and off-by-one errors.
+#
+There is no spoon.
+#
+The hardest thing in this world is to live in it.
+#
+Q: Why do Java developers wear glasses?<br />
+A: Because they don't C#.
+#
+<i>Guildenstern</i>: "The colours red, blue and green are real.<br />
+The colour yellow is a mystical experience shared by everybody."
+#
+The year has been a good one for the Society.<br />
+This year our members have put more things on top of other things than ever
+before.<br />But, I should warn you, this is no time for complacency. No,
+there are still many things, and I cannot emphasize this too strongly,
+not on top of other things.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;
+&mdash; <i>Monty Python's Flying Circus, programme 18 (1970)</i>
+#
+You are standing in an open field west of a white house,
+with a boarded front door.<br />
+There is a small mailbox here.
+#
+<i>The Programmers’ Credo:</i><br />
+We do these things not because they are easy, but because we thought
+they were going to be easy.
+#
+Six Stages of Debugging<br />
+1) That can't happen.<br />
+2) That doesn't happen on my machine.<br />
+3) That shouldn't happen.<br />
+4) Why does that happen?<br />
+5) Oh, I see.<br />
+6) How did that ever work?
+#
+A QA engineer walks into a bar. Orders a beer. Orders 0 beers. Orders 999999999 beers. <br />Orders a lizard. Orders -1 beers. Orders a sfdeljknesv.
+#
+“Any fool can know. The point is to understand.” ― Albert Einstein
+#
+<i>Schroedinger's Code:</i><br />
+Code that has been written, but not tested, is in a state of neither
+working nor failing until it is observed.
+#
+When a child is learning to walk and falls down,
+they never think "Maybe this isn't for me."
+#
+I may not live to see our glory, but I will gladly join the fight.
