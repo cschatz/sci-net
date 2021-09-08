@@ -4,7 +4,7 @@ This is the custom course management site I built over the course of multiple se
 
 In the earlier incarnations of "SciNet", the site acted as a complete replacement for
 Blackboard and the like, handling assignment submissions, grading, etc. Remnants of these
-exist in the repository, but the current version is used for:
+exist in the repository, but the current version, deployed at https://scinett.com/sn/, is used for:
 
 - Attendance in in-person classes
 - "Live Practice" and "Contest" features, both of which are virtual clicker systems
